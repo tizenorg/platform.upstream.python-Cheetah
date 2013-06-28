@@ -6,6 +6,7 @@ Summary:        Cheetah is a template engine and code generation tool
 License:        MIT
 Group:          Development/Languages/Python
 Source:         http://pypi.python.org/packages/source/C/Cheetah/Cheetah-%{version}.tar.gz
+Source1001: 	python-Cheetah.manifest
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 BuildRequires:  fdupes
 BuildRequires:  python-devel
@@ -21,6 +22,7 @@ used to generate C++ game code, Java, sql, form emails and even Python code.
 
 %prep
 %setup -q -n Cheetah-%{version}
+cp %{SOURCE1001} .
 # Remove she-bang lines for non-executable scripts:
 sed -i "1d" cheetah/{Tests/{Unicode,Filters,Parser,Template,Regressions,Cheps,Analyzer,Test,Misc,CheetahWrapper,SyntaxAndOutput,NameMapper,Performance},ImportHooks,Utils/Misc,Servlet,NameMapper,Parser,DirectiveAnalyzer}.py
 
@@ -32,6 +34,7 @@ python setup.py install --prefix=%{_prefix} --root=%{buildroot}
 %fdupes %{buildroot}
 
 %files
+%manifest %{name}.manifest
 %defattr(-,root,root,-)
 %doc LICENSE
 %{_bindir}/cheetah*
